@@ -4,6 +4,7 @@ const path = require('path');
 
 const { app, BrowserWindow, Menu } = electron;
 
+const isMac = process.platform === 'darwin';
 let mainWindow;
 let addWindow;
 
@@ -14,6 +15,9 @@ app.on('ready', function () {
     protocol: 'file:',
     slashes: true
   }));
+  mainWindow.on('closed', function () {
+    app.quit();
+  });
 
   const mainMenu = Menu.buildFromTemplate(mainMenuTemplate);
   Menu.setApplicationMenu(mainMenu);
@@ -21,8 +25,8 @@ app.on('ready', function () {
 
 function createAddWindow () {
   addWindow = new BrowserWindow({
-    width: 200,
-    height: 300,
+    width: 300,
+    height: 200,
     title: 'Add Shopping List Item'
   });
   addWindow.loadURL(url.format({
@@ -30,6 +34,10 @@ function createAddWindow () {
     protocol: 'file:',
     slashes: true
   }));
+
+  addWindow.on('closed', function () {
+    addWindow = null;
+  });
 }
 
 const mainMenuTemplate = [
@@ -47,7 +55,7 @@ const mainMenuTemplate = [
       },
       {
         label: 'Quit',
-        accelerator: process.platform === 'darwin' ? 'Command+Q' : 'Ctrl+Q',
+        accelerator: isMac ? 'Command+Q' : 'Ctrl+Q',
         click () {
           app.quit();
         }
@@ -55,3 +63,27 @@ const mainMenuTemplate = [
     ]
   }
 ];
+
+if (isMac) {
+  mainMenuTemplate.unshift({
+    label: app.name
+  });
+}
+
+if (process.env.NODE_ENV !== 'production') {
+  mainMenuTemplate.push({
+    label: 'Developer Tools',
+    submenu: [
+      {
+        label: 'Toggle DevTools',
+        accelerator: isMac ? 'Command+I' : 'Ctrl+I',
+        click (item, focusedWindow) {
+          focusedWindow.toggleDevTools();
+        }
+      },
+      {
+        role: 'reload'
+      }
+    ]
+  });
+}
