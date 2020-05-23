@@ -1,0 +1,27 @@
+{
+  "name": "shopping-list",
+  "version": "1.0.0",
+  "description": "Shopping list desktop app",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Kelevra-pro/shopping-list.git"
+  },
+  "keywords": [
+    "shopping",
+    "list",
+    "electron"
+  ],
+  "author": "Damir Mukhamedinov <kelevra8pro@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Kelevra-pro/shopping-list/issues"
+  },
+  "homepage": "https://github.com/Kelevra-pro/shopping-list#readme",
+  "devDependencies": {
+    "electron": "^9.0.0"
+  }
+}
