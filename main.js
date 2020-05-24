@@ -2,7 +2,7 @@ const electron = require('electron');
 const url = require('url');
 const path = require('path');
 
-const { app, BrowserWindow, Menu } = electron;
+const { app, BrowserWindow, Menu, ipcMain } = electron;
 
 const isMac = process.platform === 'darwin';
 let mainWindow;
@@ -46,6 +46,12 @@ function createAddWindow () {
     addWindow = null;
   });
 }
+
+ipcMain.on('item:add', function (e, item) {
+  console.log(item);
+  mainWindow.webContents.send('item:add', item);
+  addWindow.close();
+});
 
 const mainMenuTemplate = [
   {
