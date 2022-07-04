@@ -25,7 +25,7 @@
   },
   "homepage": "https://github.com/Kelevra-pro/shopping-list#readme",
   "devDependencies": {
-    "electron": "^16.0.6",
+    "electron": "^16.2.6",
     "packager": "^0.1.9"
   }
 }
